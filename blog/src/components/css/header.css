@@ -1,8 +1,52 @@
+
+
 .header{
     width: 80vw;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: blue;
+    /* background-color: blue; */
+    padding: 20px 0 20px 0;
 }
+
+.search input{
+    width: 20vw;
+    height: 2vh;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    background-color: #fff;
+}
+
+.strip{
+    background-color: rgba(0, 0, 0, 0.063);
+    width: 100vw;
+    /* position: fixed; */
+    padding: 1.5vh 10vw 1.5vh 10vw;
+
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    /* background-color: rgba(0, 0, 0, 0.063); */
+
+}
+
+.strip li{
+    background-color: rgba(0, 0, 0, 0.063);
+    width: 20vw;
+    list-style: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+
