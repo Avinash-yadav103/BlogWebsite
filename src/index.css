@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-light-background text-light-text-primary font-sans transition-colors duration-200 ease-in-out;
+  }
+  
+  .dark body {
+    @apply bg-slate-900 text-slate-100;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    @apply font-display font-medium;
+  }
+  
+  a {
+    @apply text-primary-600 hover:text-primary-700 transition-colors duration-200;
+  }
+  
+  .dark a {
+    @apply text-primary-400 hover:text-primary-300;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-5 py-2.5 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary-600 hover:bg-secondary-700 text-white focus:ring-secondary-500;
+  }
+  
+  .btn-outline {
+    @apply btn border-2 border-primary-600 text-primary-700 hover:bg-primary-50 focus:ring-primary-500;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-elegant overflow-hidden transition-all duration-200 hover:shadow-soft;
+  }
+  
+  .dark .card {
+    @apply bg-slate-800 border border-slate-700;
+  }
+  
+  .input {
+    @apply w-full px-4 py-2 bg-light-surface border border-light-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+  }
+  
+  .dark .input {
+    @apply bg-slate-800 border-slate-700 text-white;
+  }
+}
+
+/* Animation classes */
+.animate-on-scroll {
+  @apply opacity-0;
+}
+
+.animate-on-scroll.active {
+  @apply animate-fade-in opacity-100;
+}
+
+/* Remove these problematic styles that conflict with Tailwind */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Custom styles for markdown content */
+.post-content h2 {
+  @apply text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-white;
+}
+
+.post-content h3 {
+  @apply text-xl font-bold mt-6 mb-3 text-gray-800 dark:text-white;
+}
+
+.post-content p {
+  @apply mb-4 text-gray-700 dark:text-gray-300;
+}
+
+.post-content ul {
+  @apply list-disc pl-5 mb-4 text-gray-700 dark:text-gray-300;
+}
+
+.post-content ol {
+  @apply list-decimal pl-5 mb-4 text-gray-700 dark:text-gray-300;
+}
+
+.post-content a {
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+.post-content blockquote {
+  @apply border-l-4 border-gray-300 dark:border-gray-700 pl-4 italic my-4 text-gray-700 dark:text-gray-300;
+}
+
+.post-content pre {
+  @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-x-auto mb-4;
+}
+
+.post-content code {
+  @apply font-mono text-sm;
+}
