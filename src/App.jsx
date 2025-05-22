@@ -12,12 +12,20 @@ import Login from './admin/Login';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import { ThemeProvider } from './context/ThemeContext';
+import axios from 'axios';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState();
+  const [users, setUsers] = useState([]); 
 
   useEffect(() => {
-    // Simulate initial data loading
+    axios.get('http://localhost:5000/api/users').then(res=>{console.log('API response:',res.data);setMessage(res.data.message);
+      setUsers(res.data.users || []);
+    }).catch(err=>console.log(err));
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -61,6 +69,6 @@ function App() {
       </ThemeProvider>
     </AuthProvider>
   );
-}
+} 
 
 export default App;

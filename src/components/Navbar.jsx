@@ -2,11 +2,15 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../context/ThemeContext';
 
-const Navbar = () => {
+const Navbar = ({users = []}) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+  console.log('Users in Navbar:', users);
+  }, [users]);
   
   // Track scroll position
   useEffect(() => {
@@ -41,6 +45,17 @@ const Navbar = () => {
             <Link to="/" className="text-2xl font-display font-bold text-white dark:text-white hover:text-blue-100">
               BlogPost
             </Link>
+          </div>
+          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+            {users && users.length > 0 ? (
+              users.map(user => (
+              <div key={user.id} className="px-4 py-2 text-sm text-gray-700">
+                {user.name}
+               </div>
+             ))
+                ) : (
+            <div className="px-4 py-2 text-sm text-gray-500">No users found</div>
+            )}
           </div>
           
           {/* Desktop Menu */}
