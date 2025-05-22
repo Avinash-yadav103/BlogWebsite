@@ -15,11 +15,11 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
+  // Add userType parameter to the login function
+  const login = async (email, password, userType = 'admin') => {
     try {
-      // This would typically be an API call
-      // For demo purposes we'll use mock credentials
-      if (email === 'admin@example.com' && password === 'password') {
+      // This would typically be an API call to different endpoints based on userType
+      if (userType === 'admin' && email === 'admin@example.com' && password === 'password') {
         const user = {
           id: '1',
           name: 'Admin User',
@@ -30,7 +30,20 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(user);
         localStorage.setItem('user', JSON.stringify(user));
         return { success: true };
-      } else {
+      } 
+      else if (userType === 'user' && email === 'user@example.com' && password === 'password123') {
+        const user = {
+          id: '2',
+          name: 'Regular User',
+          email,
+          role: 'user',
+        };
+        
+        setCurrentUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        return { success: true };
+      } 
+      else {
         return { success: false, message: 'Invalid credentials' };
       }
     } catch (error) {

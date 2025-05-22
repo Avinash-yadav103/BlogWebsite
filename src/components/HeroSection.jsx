@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import blogImg from '../assets/blog.jpg';
 
 const HeroSection = () => {
   return (
@@ -36,8 +37,8 @@ const HeroSection = () => {
           </div>
           <div className="mt-10 md:mt-0 md:w-1/2">
             <img 
-              src="/images/blog-hero.png" 
-              alt="Blog Hero"
+              src= {blogImg}
+              alt="Blog"
               className="w-full h-auto rounded-lg shadow-2xl"
               onError={(e) => {
                 e.target.onerror = null;

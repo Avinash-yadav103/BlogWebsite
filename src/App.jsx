@@ -8,7 +8,9 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Dashboard from './admin/Dashboard';
+import UserDashboard from './pages/Dashboard';
 import Login from './admin/Login';
+import UserLogin from './pages/UserLogin';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import { ThemeProvider } from './context/ThemeContext';
@@ -53,11 +55,20 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/admin/login" element={<Login />} />
+                <Route path="/login" element={<UserLogin />} />
                 <Route 
                   path="/admin/*" 
                   element={
                     <ProtectedRoute>
                       <Dashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/user/dashboard" 
+                  element={
+                    <ProtectedRoute userRole="user">
+                      <UserDashboard />
                     </ProtectedRoute>
                   } 
                 />

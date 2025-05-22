@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BlogCard from '../components/BlogCard';
+import blogImg from '../assets/blog.jpg';
 import { ArrowRight } from 'lucide-react';
 
 const Home = () => {
@@ -169,7 +170,7 @@ const Home = () => {
             </div>
             <div className="md:w-1/2">
               <img 
-                src="/api/placeholder/600/400" 
+                src={blogImg}
                 alt="Blog Hero" 
                 className="rounded-lg shadow-xl"
               />

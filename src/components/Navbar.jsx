@@ -6,6 +6,7 @@ const Navbar = ({users = []}) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,6 +26,20 @@ const Navbar = ({users = []}) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close login menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isLoginMenuOpen && !event.target.closest('.login-menu-container')) {
+        setIsLoginMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isLoginMenuOpen]);
   
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -91,6 +106,39 @@ const Navbar = ({users = []}) => {
                 </svg>
               )}
             </button>
+            
+            <div className="relative group">
+              <button
+                onClick={() => setIsLoginMenuOpen(!isLoginMenuOpen)}
+                className="p-2 rounded-md text-white hover:bg-white/10 transition-colors flex items-center"
+                aria-label="Login options"
+              >
+                <span className="mr-1">Login</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+              
+              {/* Login dropdown menu */}
+              {isLoginMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 login-menu-container">
+                <Link 
+                  to="/admin/login" 
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsLoginMenuOpen(false)}
+                >
+                  Login as Admin
+                </Link>
+                <Link 
+                  to="/login" 
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsLoginMenuOpen(false)}
+                >
+                  Login as User
+                </Link>
+              </div>
+              )}
+            </div>
           </div>
           
           {/* Mobile menu button */}
@@ -146,6 +194,22 @@ const Navbar = ({users = []}) => {
                 {link.name}
               </Link>
             ))}
+          </div>
+          <div className="border-t border-blue-700 mt-2 pt-2">
+            <Link
+              to="/admin/login"
+              className="block px-3 py-2 rounded-md text-base font-medium text-blue-100 hover:bg-blue-700/70"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Login as Admin
+            </Link>
+            <Link
+              to="/login"
+              className="block px-3 py-2 rounded-md text-base font-medium text-blue-100 hover:bg-blue-700/70"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Login as User
+            </Link>
           </div>
         </div>
       )}
