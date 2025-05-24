@@ -14,17 +14,12 @@ const UserLogin = () => {
   // Add state for signup form
   const [isSignup, setIsSignup] = useState(false);
   const [signupName, setSignupName] = useState('');
+  const [signupUsername, setSignupUsername] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signupError, setSignupError] = useState('');
   const [signupLoading, setSignupLoading] = useState(false);
-
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,20 +27,17 @@ const UserLogin = () => {
     setError('');
 
     try {
-      // For demo purposes - in a real app, you'd validate against your backend
-      if (email === 'user@example.com' && password === 'password123') {
-        const result = await login(email, password, 'user');
-        if (result.success) {
-          navigate('/user/dashboard');
-        } else {
-          setError(result.message || 'Login failed');
-        }
+      // Use the login function from AuthContext instead of directly setting the user
+      const result = await login(email, password, 'user');
+      
+      if (result.success) {
+        navigate('/user/dashboard');
       } else {
-        setError('Invalid email or password');
+        setError(result.message || 'Login failed');
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError('An error occurred. Please try again.');
+      setError(err.response?.data?.message || 'Invalid credentials');
     } finally {
       setIsLoading(false);
     }
@@ -74,6 +66,7 @@ const UserLogin = () => {
       // Create a properly formatted user object with the signup form data
       const userData = {
         name: signupName,
+        username: signupUsername, // Add this line
         email: signupEmail,
         password: signupPassword
       };
@@ -84,14 +77,31 @@ const UserLogin = () => {
       // If successful, show success message
       if (res.data && res.data.message) {
         alert(res.data.message);
-      }
-      
-      // After signup, auto login the user
-      const result = await login(signupEmail, signupPassword, 'user');
-      if (result.success) {
-        navigate('/user/dashboard');
-      } else {
-        setSignupError(result.message || 'Signup successful but login failed');
+        
+        // Instead of using login function directly, just log in with credentials
+        try {
+          const loginRes = await axios.post("http://localhost:5000/api/auth", {
+            email: signupEmail,
+            password: signupPassword
+          });
+          
+          if (loginRes.data && loginRes.data.success) {
+            const user = {
+              id: loginRes.data.user.id,
+              name: loginRes.data.user.name,
+              email: loginRes.data.user.email,
+              role: 'user'
+            };
+            
+            contextSetCurrentUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
+            navigate('/user/dashboard');
+          } 
+        } catch (loginErr) {
+          console.error('Auto login failed:', loginErr);
+          // Don't show error, just reset the form and have them log in manually
+          setIsSignup(false);
+        }
       }
     } catch (err) {
       console.error('Signup error:', err);
@@ -267,6 +277,25 @@ const UserLogin = () => {
                       onChange={(e) => setSignupName(e.target.value)}
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                       placeholder="John Doe"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Username
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="signup-username"
+                      name="name"
+                      type="text"
+                      // autoComplete="name"
+                      required
+                      value={signupUsername}
+                      onChange={(e) => setSignupUsername(e.target.value)}
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                      placeholder="avinash1234"
                     />
                   </div>
                 </div>

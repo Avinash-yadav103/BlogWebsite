@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext(null);
 
@@ -15,40 +16,31 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // Add userType parameter to the login function
   const login = async (email, password, userType = 'admin') => {
     try {
-      // This would typically be an API call to different endpoints based on userType
-      if (userType === 'admin' && email === 'admin@example.com' && password === 'password') {
+      // Make direct API call to authenticate
+      const response = await axios.post("http://localhost:5000/api/auth", { email, password });
+      
+      if (response.data && response.data.success) {
         const user = {
-          id: '1',
-          name: 'Admin User',
-          email,
-          role: 'admin',
+          id: response.data.user.id,
+          name: response.data.user.name,
+          email: response.data.user.email,
+          role: response.data.user.role || userType,
         };
         
         setCurrentUser(user);
         localStorage.setItem('user', JSON.stringify(user));
         return { success: true };
-      } 
-      else if (userType === 'user' && email === 'user@example.com' && password === 'password123') {
-        const user = {
-          id: '2',
-          name: 'Regular User',
-          email,
-          role: 'user',
-        };
-        
-        setCurrentUser(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        return { success: true };
-      } 
-      else {
-        return { success: false, message: 'Invalid credentials' };
+      } else {
+        return { success: false, message: response.data.message || 'Login failed' };
       }
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false, message: 'An error occurred during login' };
+      return { 
+        success: false, 
+        message: error.response?.data?.message || 'An error occurred during login' 
+      };
     }
   };
 
@@ -67,7 +59,17 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{
+      currentUser,
+      loading,
+      login,
+      logout,
+      isAuthenticated: () => !!currentUser
+    }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
