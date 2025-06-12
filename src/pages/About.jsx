@@ -1,214 +1,179 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Book, Calendar, Award, ArrowRight } from 'lucide-react';
+import { Github, Mail, ExternalLink, Twitter } from 'lucide-react';
 
 const About = () => {
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen py-12">
-      <div className="max-w-5xl mx-auto px-4">
-        {/* Page Header */}
-        <header className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-            About Our Blog
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Sharing knowledge, insights, and stories to help you become a better developer.
+    <div className="bg-paper min-h-screen pt-24 pb-16">
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Newspaper-style headline */}
+        <header className="text-center mb-12 border-b-4 border-double border-ink pb-6">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3">ABOUT THE EDITOR</h1>
+          <div className="flex justify-center">
+            <div className="w-16 h-1 bg-accent"></div>
+          </div>
+          <p className="mt-4 font-serif italic text-gray-600 text-lg">
+            The man behind the daily chronicle
           </p>
         </header>
         
-        {/* Our Mission Section */}
-        <section className="mb-20">
-          <div className="flex flex-col md:flex-row gap-10 items-center">
-            <div className="md:w-1/2">
+        {/* Main profile section - newspaper style */}
+        <div className="grid md:grid-cols-3 gap-10 mb-16">
+          {/* Column 1: Photo and contact */}
+          <div className="md:col-span-1">
+            <div className="border-4 border-ink mb-6 shadow-md">
               <img 
-                src="/api/placeholder/600/400" 
-                alt="Our Mission" 
-                className="rounded-lg shadow-md w-full h-auto"
+                src="https://avatars.githubusercontent.com/u/Avinash-yadav103" 
+                alt="Avinash Yadav"
+                className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-300"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://via.placeholder.com/300x400?text=Avinash+Yadav';
+                }}
               />
             </div>
-            <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
-                Our Mission
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                We started this blog with a simple mission: to create a space where developers of all levels can learn, 
-                grow, and connect. We believe that knowledge should be accessible to everyone, and we're committed to 
-                sharing high-quality, practical content that helps you solve real problems.
-              </p>
-              <p className="text-gray-600 dark:text-gray-400">
-                Whether you're just starting your journey in web development or you're a seasoned professional looking 
-                to stay current with the latest technologies, we're here to support you with tutorials, deep dives, and 
-                thought-provoking articles.
-              </p>
+            
+            <div className="bg-aged-paper p-6 border border-gray-300">
+              <h3 className="font-serif text-xl font-bold mb-3 border-b border-gray-400 pb-2">Contact The Editor</h3>
+              <div className="space-y-4 mt-4">
+                <a 
+                  href="https://github.com/Avinash-yadav103" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-ink hover:text-accent transition-colors"
+                >
+                  <Github size={18} className="mr-2" />
+                  <span className="font-serif">Github</span>
+                  <ExternalLink size={14} className="ml-2" />
+                </a>
+                
+                <a 
+                  href="mailto:editor@dailychronicle.com" 
+                  className="flex items-center text-ink hover:text-accent transition-colors"
+                >
+                  <Mail size={18} className="mr-2" />
+                  <span className="font-serif">Email the Editor</span>
+                </a>
+                
+                <a 
+                  href="https://twitter.com/AvinashYadav" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-ink hover:text-accent transition-colors"
+                >
+                  <Twitter size={18} className="mr-2" />
+                  <span className="font-serif">Twitter</span>
+                  <ExternalLink size={14} className="ml-2" />
+                </a>
+              </div>
             </div>
           </div>
-        </section>
-        
-        {/* Stats Section */}
-        <section className="mb-20 py-10 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="p-6">
-              <div className="flex justify-center mb-3">
-                <Book size={40} className="text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-800 dark:text-white">200+</h3>
-              <p className="text-gray-600 dark:text-gray-400">Articles Published</p>
-            </div>
-            
-            <div className="p-6">
-              <div className="flex justify-center mb-3">
-                <Users size={40} className="text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-800 dark:text-white">50K+</h3>
-              <p className="text-gray-600 dark:text-gray-400">Monthly Readers</p>
-            </div>
-            
-            <div className="p-6">
-              <div className="flex justify-center mb-3">
-                <Calendar size={40} className="text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-800 dark:text-white">5+</h3>
-              <p className="text-gray-600 dark:text-gray-400">Years of Experience</p>
-            </div>
-          </div>
-        </section>
-        
-        {/* Team Section */}
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-10 text-center">
-            Meet Our Team
-          </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md">
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src="/api/placeholder/400/400" 
-                  alt="Jane Doe" 
-                  className="w-full h-full object-cover"
-                />
+          {/* Column 2-3: Main content */}
+          <div className="md:col-span-2">
+            <article className="prose prose-lg max-w-none font-serif prose-headings:font-serif prose-p:text-justify">
+              <h2 className="text-3xl font-bold mb-6">Avinash Yadav</h2>
+              
+              {/* First paragraph with drop cap */}
+              <p className="first-letter:text-7xl first-letter:font-bold first-letter:text-accent first-letter:mr-3 first-letter:float-left">
+                As the founder and chief editor of The Daily Chronicle, Avinash brings a wealth of technical expertise and a passion for sharing knowledge with the developer community. With a background in modern web development and a keen eye for detail, he has built this platform as a space for thoughtful discourse and practical insights into the world of programming.
+              </p>
+              
+              <p>
+                Avinash specializes in full-stack development with particular expertise in React, Node.js, and MongoDB. His journey in technology began over five years ago, and since then, he has contributed to numerous open-source projects while maintaining a commitment to educational content that helps developers at all stages of their careers.
+              </p>
+              
+              <blockquote>
+                "I believe that knowledge should be accessible to everyone. My goal with The Daily Chronicle is to create a space where developers can learn, share, and grow together in a supportive community."
+              </blockquote>
+              
+              <h3 className="text-2xl font-bold mt-8">Technical Expertise</h3>
+              <p>
+                When not writing or editing articles for The Daily Chronicle, Avinash can be found experimenting with new technologies, contributing to open-source projects, or mentoring aspiring developers. His GitHub repository showcases a diverse collection of projects that reflect his technical versatility and commitment to clean, maintainable code.
+              </p>
+              
+              <h3 className="text-2xl font-bold mt-8">Editorial Philosophy</h3>
+              <p>
+                The Daily Chronicle's editorial approach reflects Avinash's belief in thorough research, practical examples, and clarity of explanation. Each article undergoes a rigorous review process to ensure accuracy and relevance to our readers' needs. We prioritize content that solves real-world problems and provides actionable insights over theoretical discussions.
+              </p>
+              
+              <div className="bg-aged-paper border border-gray-300 p-6 my-8">
+                <h4 className="font-bold text-xl mb-4">Areas of Interest</h4>
+                <ul className="space-y-2 list-disc pl-5">
+                  <li>Modern JavaScript frameworks and libraries</li>
+                  <li>Server-side development with Node.js</li>
+                  <li>Database design and optimization</li>
+                  <li>Authentication and security best practices</li>
+                  <li>Performance optimization techniques</li>
+                  <li>User experience and interface design</li>
+                </ul>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">Jane Doe</h3>
-                <p className="text-blue-600 dark:text-blue-400 mb-4">Founder & Editor</p>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Frontend developer with a passion for React and responsive design. Loves to share knowledge through writing.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.21c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
+            </article>
             
-            <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md">
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src="/api/placeholder/400/400" 
-                  alt="John Smith" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">John Smith</h3>
-                <p className="text-blue-600 dark:text-blue-400 mb-4">Technical Writer</p>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Fullstack developer specializing in Node.js and React. Always exploring new technologies and frameworks.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.21c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md">
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src="/api/placeholder/400/400" 
-                  alt="Sarah Parker" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">Sarah Parker</h3>
-                <p className="text-blue-600 dark:text-blue-400 mb-4">UX Writer</p>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  UX designer who loves creating intuitive user experiences. Writes about design principles and UI patterns.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.21c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
+            {/* Recent work section */}
+            <div className="mt-10 border-t-2 border-gray-300 pt-6">
+              <h3 className="font-serif text-2xl font-bold mb-4">Recent Projects</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <a 
+                  href="https://github.com/Avinash-yadav103/BlogPost-Website" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-5 bg-white border border-gray-300 hover:shadow-md transition-shadow"
+                >
+                  <h4 className="font-serif font-bold text-lg mb-2">Blog Post Website</h4>
+                  <p className="text-gray-600 text-sm mb-3">A modern blogging platform with newspaper-inspired design and MongoDB integration.</p>
+                  <div className="flex items-center text-accent text-sm">
+                    <Github size={14} className="mr-1" />
+                    <span>View on GitHub</span>
+                    <ExternalLink size={12} className="ml-1" />
+                  </div>
+                </a>
+                
+                <a 
+                  href="https://github.com/Avinash-yadav103" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-5 bg-white border border-gray-300 hover:shadow-md transition-shadow"
+                >
+                  <h4 className="font-serif font-bold text-lg mb-2">More Projects</h4>
+                  <p className="text-gray-600 text-sm mb-3">Explore my full portfolio of projects and contributions on GitHub.</p>
+                  <div className="flex items-center text-accent text-sm">
+                    <Github size={14} className="mr-1" />
+                    <span>Visit GitHub Profile</span>
+                    <ExternalLink size={12} className="ml-1" />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
-        </section>
+        </div>
         
-        {/* Write for Us Section */}
-        <section className="mb-20 bg-blue-600 text-white rounded-lg shadow-md overflow-hidden">
+        {/* "Write for us" section */}
+        <section className="border-4 border-double border-gray-800 p-8 bg-aged-paper">
           <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/2 p-10">
-              <div className="flex items-center mb-4">
-                <Award className="mr-2" size={24} />
-                <h2 className="text-2xl font-bold">Write for Us</h2>
-              </div>
-              <p className="mb-6">
-                Are you passionate about web development and love to share your knowledge? We're always looking for 
-                talented writers to join our team as contributors.
+            <div className="md:w-2/3 pr-6">
+              <h3 className="font-serif text-3xl font-bold mb-4">Join Our Writers</h3>
+              <p className="font-serif mb-6">
+                Are you passionate about web development and enjoy sharing your knowledge? 
+                The Daily Chronicle is always looking for talented contributors to join our team.
               </p>
               <Link 
                 to="/contact" 
-                className="inline-flex items-center bg-white text-blue-700 hover:bg-blue-50 px-6 py-3 rounded-md font-medium transition-colors"
+                className="inline-flex items-center bg-ink text-paper hover:bg-transparent hover:text-ink border-2 border-ink px-6 py-2 font-serif transition-colors"
               >
-                Get in Touch
-                <ArrowRight className="ml-2" size={18} />
+                Contact the Editor
               </Link>
             </div>
-            <div className="md:w-1/2">
-              <img 
-                src="/api/placeholder/600/400" 
-                alt="Write for Us" 
-                className="w-full h-full object-cover"
-              />
+            <div className="md:w-1/3 mt-6 md:mt-0">
+              <div className="bg-white border-2 border-gray-800 p-4">
+                <h4 className="font-serif font-bold text-center mb-2">We're Looking For:</h4>
+                <ul className="text-sm space-y-2 font-serif">
+                  <li>• Technical tutorials</li>
+                  <li>• Industry insights</li>
+                  <li>• Code reviews</li>
+                  <li>• Project walkthroughs</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
