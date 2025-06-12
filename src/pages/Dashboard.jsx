@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
   PlusCircle, ImageIcon, Link as LinkIcon, FileText, 
-  Paperclip, MessageSquare, Heart, Share2, Settings, Edit, 
-  LogOut, BookOpen, Layout, BarChart2
+  Paperclip, MessageSquare, Heart, Share2
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -60,157 +59,149 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
-      {/* Banner and Profile Section */}
-      <div className="relative h-64 md:h-80 bg-gradient-to-r from-blue-500 to-purple-600 overflow-hidden">
-        {/* Banner Image */}
-        <img 
-          src="/api/placeholder/1500/500" 
-          alt="Cover" 
-          className="absolute w-full h-full object-cover opacity-60"
-        />
+    <div className="bg-aged-paper min-h-screen pb-12">
+      {/* Banner with vintage newspaper feel */}
+      <div className="relative h-48 bg-ink overflow-hidden border-b border-gray-800">
+        <div className="absolute inset-0 opacity-20">
+          <div className="w-full h-full bg-repeat" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/old-paper.png')"}}></div>
+        </div>
         
-        {/* Edit Banner Button */}
-        <button className="absolute top-4 right-4 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors">
-          <Edit size={18} />
-        </button>
-        
-        {/* Profile Section - Positioned to overlap the banner */}
-        <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-          <div className="relative">
-            <img 
-              src={currentUser?.photoURL || "/api/placeholder/150/150"} 
-              alt={currentUser?.name || "User"} 
-              className="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 object-cover"
-            />
-            <button className="absolute bottom-2 right-2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors">
-              <Edit size={16} />
-            </button>
-          </div>
-          <h1 className="mt-2 text-2xl font-bold text-gray-800 dark:text-white">
-            {currentUser?.name || "Welcome, User!"}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-4xl font-serif font-bold text-paper text-center px-4">
+            {currentUser?.name}'s Newsroom
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            {currentUser?.bio || "Web Developer & Content Creator"}
-          </p>
         </div>
       </div>
       
-      {/* Main Content - with top padding to account for overlapping profile */}
-      <div className="max-w-5xl mx-auto px-4 pt-28">
-        {/* Dashboard Navigation */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mb-6 flex justify-between items-center">
-          <div className="flex space-x-4 md:space-x-8">
+      {/* Profile section - styled like a newspaper byline */}
+      <div className="bg-paper border-b border-gray-300 shadow-md">
+        <div className="max-w-5xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+          <div className="flex items-center mb-4 md:mb-0">
+            <img 
+              src={currentUser?.photoURL || "/api/placeholder/80/80"} 
+              alt={currentUser?.name || "User"} 
+              className="w-16 h-16 rounded-full border-2 border-gray-800 mr-4"
+            />
+            <div>
+              <h2 className="font-serif text-xl font-bold">{currentUser?.name}</h2>
+              <p className="text-gray-600 font-serif italic">{currentUser?.bio || "Writer & Content Creator"}</p>
+            </div>
+          </div>
+          
+          <div className="flex space-x-4">
+            <button className="px-4 py-2 border-2 border-gray-800 bg-aged-paper hover:bg-ink hover:text-paper transition-colors font-serif">
+              Edit Profile
+            </button>
+            <button 
+              onClick={logout}
+              className="px-4 py-2 bg-accent text-paper hover:bg-transparent hover:text-accent border-2 border-accent transition-colors font-serif"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      {/* Main content */}
+      <div className="max-w-5xl mx-auto px-4 pt-8">
+        {/* Tabs - styled like newspaper section headers */}
+        <div className="border-b-2 border-gray-800 pb-3 mb-8 flex justify-between">
+          <div className="flex space-x-8">
             <button 
               onClick={() => setSelectedTab('posts')}
-              className={`flex items-center ${selectedTab === 'posts' 
-                ? 'text-blue-500 font-medium' 
-                : 'text-gray-600 dark:text-gray-300'}`}
+              className={`font-serif text-lg ${selectedTab === 'posts' 
+                ? 'text-ink font-bold border-b-2 border-accent -mb-3.5' 
+                : 'text-gray-600 hover:text-ink'}`}
             >
-              <BookOpen size={18} className="mr-1" />
-              <span className="hidden sm:inline">My Posts</span>
+              My Stories
             </button>
             <button 
               onClick={() => setSelectedTab('stats')}
-              className={`flex items-center ${selectedTab === 'stats' 
-                ? 'text-blue-500 font-medium' 
-                : 'text-gray-600 dark:text-gray-300'}`}
+              className={`font-serif text-lg ${selectedTab === 'stats' 
+                ? 'text-ink font-bold border-b-2 border-accent -mb-3.5' 
+                : 'text-gray-600 hover:text-ink'}`}
             >
-              <BarChart2 size={18} className="mr-1" />
-              <span className="hidden sm:inline">Analytics</span>
+              Statistics
             </button>
             <button 
               onClick={() => setSelectedTab('settings')}
-              className={`flex items-center ${selectedTab === 'settings' 
-                ? 'text-blue-500 font-medium' 
-                : 'text-gray-600 dark:text-gray-300'}`}
+              className={`font-serif text-lg ${selectedTab === 'settings' 
+                ? 'text-ink font-bold border-b-2 border-accent -mb-3.5' 
+                : 'text-gray-600 hover:text-ink'}`}
             >
-              <Settings size={18} className="mr-1" />
-              <span className="hidden sm:inline">Settings</span>
+              Settings
             </button>
           </div>
-          <button 
-            onClick={logout}
-            className="text-gray-600 dark:text-gray-300 hover:text-red-500 flex items-center"
-          >
-            <LogOut size={18} className="mr-1" />
-            <span className="hidden sm:inline">Logout</span>
-          </button>
         </div>
         
-        {/* Stats Overview */}
+        {/* Stats Overview - newspaper style infographics */}
         {selectedTab === 'stats' && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
-              <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900 mb-3">
-                <BookOpen size={20} className="text-blue-500 dark:text-blue-400" />
+          <div className="bg-paper border border-gray-300 p-8 mb-8">
+            <h3 className="font-serif text-2xl font-bold mb-6 pb-3 border-b border-gray-300">Readership Statistics</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-4xl font-serif font-bold mb-2">{stats.views}</div>
+                <div className="text-sm uppercase tracking-wider text-gray-700 font-serif">Total Views</div>
+                <div className="mt-2 text-xs text-gray-500">Last 30 days</div>
               </div>
-              <span className="text-2xl font-bold text-gray-800 dark:text-white">{stats.posts}</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Posts</span>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
-              <div className="p-3 rounded-full bg-green-100 dark:bg-green-900 mb-3">
-                <Layout size={20} className="text-green-500 dark:text-green-400" />
+              <div className="text-center">
+                <div className="text-4xl font-serif font-bold mb-2">{stats.likes}</div>
+                <div className="text-sm uppercase tracking-wider text-gray-700 font-serif">Total Likes</div>
+                <div className="mt-2 text-xs text-gray-500">All articles</div>
               </div>
-              <span className="text-2xl font-bold text-gray-800 dark:text-white">{stats.views}</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Views</span>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
-              <div className="p-3 rounded-full bg-red-100 dark:bg-red-900 mb-3">
-                <Heart size={20} className="text-red-500 dark:text-red-400" />
+              <div className="text-center">
+                <div className="text-4xl font-serif font-bold mb-2">{stats.comments}</div>
+                <div className="text-sm uppercase tracking-wider text-gray-700 font-serif">Comments</div>
+                <div className="mt-2 text-xs text-gray-500">Reader engagement</div>
               </div>
-              <span className="text-2xl font-bold text-gray-800 dark:text-white">{stats.likes}</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Likes</span>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
-              <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900 mb-3">
-                <MessageSquare size={20} className="text-purple-500 dark:text-purple-400" />
+              <div className="text-center">
+                <div className="text-4xl font-serif font-bold mb-2">{stats.posts}</div>
+                <div className="text-sm uppercase tracking-wider text-gray-700 font-serif">Published</div>
+                <div className="mt-2 text-xs text-gray-500">Your articles</div>
               </div>
-              <span className="text-2xl font-bold text-gray-800 dark:text-white">{stats.comments}</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Comments</span>
             </div>
           </div>
         )}
         
         {/* Settings Panel */}
         {selectedTab === 'settings' && (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
-            <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-white">Account Settings</h2>
+          <div className="bg-paper border border-gray-300 p-8 mb-8">
+            <h3 className="font-serif text-2xl font-bold mb-6 pb-3 border-b border-gray-300">Account Settings</h3>
             <form className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
                   Display Name
                 </label>
                 <input 
                   type="text" 
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" 
+                  className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent" 
                   defaultValue={currentUser?.name || ""}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
                   Bio
                 </label>
                 <textarea 
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" 
+                  className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent" 
                   rows={3}
                   defaultValue={currentUser?.bio || ""}
                 ></textarea>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
                   Email
                 </label>
                 <input 
                   type="email" 
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" 
+                  className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent" 
                   defaultValue={currentUser?.email || ""}
                 />
               </div>
               <div className="flex justify-end">
                 <button 
                   type="button"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  className="px-6 py-2 bg-ink text-paper border border-ink hover:bg-transparent hover:text-ink transition-colors font-serif"
                 >
                   Save Changes
                 </button>
@@ -219,58 +210,58 @@ const Dashboard = () => {
           </div>
         )}
         
-        {/* Create Post Section - only visible in posts tab */}
+        {/* Create Post Section - styled like newspaper editor */}
         {selectedTab === 'posts' && (
-          <div className="mb-6">
+          <div className="mb-8">
             <button 
               onClick={() => setIsCreatingPost(!isCreatingPost)}
-              className={`w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 text-left flex items-center ${isCreatingPost ? 'hidden' : ''}`}
+              className={`w-full bg-paper border border-gray-300 p-4 text-left flex items-center ${isCreatingPost ? 'hidden' : ''}`}
             >
-              <img 
-                src={currentUser?.photoURL || "/api/placeholder/40/40"} 
-                alt="User" 
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <span className="text-gray-500 dark:text-gray-400">Share your thoughts...</span>
-              <PlusCircle className="ml-auto text-blue-500" size={20} />
+              <div className="flex-shrink-0 mr-3">
+                <div className="w-10 h-10 rounded-full border-2 border-gray-800 flex items-center justify-center">
+                  <PlusCircle size={16} />
+                </div>
+              </div>
+              <span className="font-serif">Write a new article...</span>
             </button>
             
             {/* Expanded Create Post UI */}
             {isCreatingPost && (
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
-                <div className="flex items-center mb-4">
+              <div className="bg-paper border border-gray-300 p-6">
+                <div className="flex items-center mb-4 pb-3 border-b border-gray-200">
                   <img 
                     src={currentUser?.photoURL || "/api/placeholder/40/40"}
                     alt="User" 
-                    className="w-10 h-10 rounded-full mr-3"
+                    className="w-10 h-10 rounded-full border border-gray-800 mr-3"
                   />
                   <div>
-                    <span className="font-medium text-gray-800 dark:text-white">{currentUser?.name || "User"}</span>
+                    <span className="font-serif font-medium">{currentUser?.name || "User"}</span>
+                    <div className="text-xs text-gray-600">Draft Article</div>
                   </div>
                 </div>
                 <textarea
-                  className="w-full px-3 py-2 bg-transparent border-none focus:outline-none focus:ring-0 text-gray-800 dark:text-white mb-3"
-                  placeholder="What would you like to share today?"
+                  className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent mb-3 font-serif"
+                  placeholder="Begin your article here..."
                   value={newPostContent}
                   onChange={(e) => setNewPostContent(e.target.value)}
                   rows={5}
                 ></textarea>
                 
                 {/* Post formatting options */}
-                <div className="border-t border-b border-gray-200 dark:border-gray-700 py-3 flex flex-wrap gap-4">
-                  <button className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                <div className="border-t border-b border-gray-300 py-3 flex flex-wrap gap-4 my-4">
+                  <button className="flex items-center text-gray-700 hover:text-accent font-serif text-sm">
                     <ImageIcon size={16} className="mr-1" />
-                    <span>Image</span>
+                    <span>Add Image</span>
                   </button>
-                  <button className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                  <button className="flex items-center text-gray-700 hover:text-accent font-serif text-sm">
                     <LinkIcon size={16} className="mr-1" />
-                    <span>Link</span>
+                    <span>Insert Link</span>
                   </button>
-                  <button className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                  <button className="flex items-center text-gray-700 hover:text-accent font-serif text-sm">
                     <FileText size={16} className="mr-1" />
-                    <span>Article</span>
+                    <span>Format Text</span>
                   </button>
-                  <button className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                  <button className="flex items-center text-gray-700 hover:text-accent font-serif text-sm">
                     <Paperclip size={16} className="mr-1" />
                     <span>Attachment</span>
                   </button>
@@ -280,14 +271,14 @@ const Dashboard = () => {
                 <div className="flex justify-between mt-3">
                   <button 
                     onClick={() => setIsCreatingPost(false)}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    className="px-4 py-2 border border-gray-800 bg-paper hover:bg-gray-200 text-gray-800 transition-colors font-serif"
                   >
-                    Cancel
+                    Discard
                   </button>
                   <button 
                     onClick={handleCreatePost}
                     disabled={!newPostContent.trim()}
-                    className={`px-4 py-2 bg-blue-600 text-white rounded-md ${!newPostContent.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'} transition-colors`}
+                    className={`px-4 py-2 bg-ink text-paper border border-ink hover:bg-transparent hover:text-ink transition-colors font-serif ${!newPostContent.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     Publish
                   </button>
@@ -297,32 +288,33 @@ const Dashboard = () => {
           </div>
         )}
         
-        {/* Posts Feed */}
+        {/* Posts Feed - newspaper style articles */}
         {selectedTab === 'posts' && (
-          <div className="space-y-4">
+          <div className="space-y-8">
             {posts.map(post => (
-              <div key={post.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                <div className="p-4">
-                  <div className="flex items-center mb-3">
+              <div key={post.id} className="bg-paper border border-gray-300">
+                <div className="p-6">
+                  <div className="flex items-center mb-4 pb-2 border-b border-gray-200">
                     <img 
                       src={currentUser?.photoURL || "/api/placeholder/40/40"}
                       alt="User" 
-                      className="w-10 h-10 rounded-full mr-3"
+                      className="w-8 h-8 rounded-full border border-gray-800 mr-2"
                     />
                     <div>
-                      <span className="font-medium text-gray-800 dark:text-white">{currentUser?.name || "User"}</span>
-                      <p className="text-xs text-gray-500">
+                      <span className="font-serif font-medium text-sm">{currentUser?.name || "User"}</span>
+                      <span className="mx-2 text-gray-500">•</span>
+                      <span className="text-xs text-gray-500 font-serif italic">
                         {new Date(post.createdAt).toLocaleDateString()} at {new Date(post.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                      </p>
+                      </span>
                     </div>
                   </div>
                   
-                  <p className="text-gray-800 dark:text-white mb-3">
+                  <p className="font-serif mb-4 leading-relaxed">
                     {post.content}
                   </p>
                   
                   {post.image && (
-                    <div className="rounded-lg overflow-hidden mb-3">
+                    <div className="border border-gray-300 mb-4">
                       <img 
                         src={post.image} 
                         alt="Post attachment" 
@@ -331,18 +323,18 @@ const Dashboard = () => {
                     </div>
                   )}
                   
-                  <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-3">
-                    <button className="flex items-center hover:text-red-500">
+                  <div className="flex justify-between text-sm text-gray-600 border-t border-gray-200 pt-3">
+                    <button className="flex items-center hover:text-accent">
                       <Heart size={16} className="mr-1" />
-                      <span>{post.likes} likes</span>
+                      <span className="font-serif">{post.likes} likes</span>
                     </button>
-                    <button className="flex items-center hover:text-blue-500">
+                    <button className="flex items-center hover:text-accent">
                       <MessageSquare size={16} className="mr-1" />
-                      <span>{post.comments} comments</span>
+                      <span className="font-serif">{post.comments} comments</span>
                     </button>
-                    <button className="flex items-center hover:text-green-500">
+                    <button className="flex items-center hover:text-accent">
                       <Share2 size={16} className="mr-1" />
-                      <span>Share</span>
+                      <span className="font-serif">Share</span>
                     </button>
                   </div>
                 </div>

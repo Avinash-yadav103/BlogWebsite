@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
 
 const UserLogin = () => {
   const [email, setEmail] = useState('');
@@ -117,175 +116,151 @@ const UserLogin = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-aged-paper flex flex-col py-12 sm:px-6 lg:px-8 relative">
+      {/* Optional decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-40 bg-repeat-x opacity-30" 
+           style={{backgroundImage: "url('path/to/newspaper-border.png')"}}></div>
+      
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-          {isSignup ? 'Create an Account' : 'User Login'}
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-          {isSignup 
-            ? 'Sign up to start sharing your content' 
-            : 'Sign in to access your account'}
-        </p>
-      </div>
+        {/* Newspaper style header */}
+        <div className="text-center mb-8">
+          <h2 className="font-serif text-3xl font-bold text-gray-900">
+            {isSignup ? 'REGISTER' : 'ACCOUNT ACCESS'}
+          </h2>
+          <div className="mt-2 h-0.5 bg-gray-800 max-w-xs mx-auto"></div>
+          <p className="mt-3 font-serif italic text-sm text-gray-700">
+            {isSignup 
+              ? 'Join our community of writers and readers' 
+              : 'Sign in to access your account'}
+          </p>
+        </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {/* Toggle between Login and Signup */}
-          <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+        <div className="bg-paper border border-gray-800 shadow-xl sm:rounded-none">
+          {/* Login/Signup tabs */}
+          <div className="flex border-b border-gray-800">
             <button
-              className={`pb-4 px-4 text-center w-1/2 font-medium text-sm ${
+              className={`py-3 px-4 w-1/2 text-center font-serif font-medium ${
                 !isSignup 
-                  ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400' 
-                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                  ? 'bg-gray-800 text-white' 
+                  : 'bg-paper text-gray-800 hover:bg-gray-100'
               }`}
               onClick={() => setIsSignup(false)}
             >
-              Login
+              Sign In
             </button>
             <button
-              className={`pb-4 px-4 text-center w-1/2 font-medium text-sm ${
+              className={`py-3 px-4 w-1/2 text-center font-serif font-medium ${
                 isSignup 
-                  ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400' 
-                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                  ? 'bg-gray-800 text-white' 
+                  : 'bg-paper text-gray-800 hover:bg-gray-100'
               }`}
               onClick={() => setIsSignup(true)}
             >
-              Sign Up
+              Register
             </button>
           </div>
           
-          {/* Login Form */}
-          {!isSignup && (
-            <>
-              {error && (
-                <div className="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 p-4 text-red-700 dark:text-red-400">
-                  <p>{error}</p>
-                </div>
-              )}
-              
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Email address
-                  </label>
-                  <div className="mt-1">
+          <div className="p-8">
+            {/* Login Form */}
+            {!isSignup && (
+              <>
+                {error && (
+                  <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 text-red-800">
+                    <p className="font-serif">{error}</p>
+                  </div>
+                )}
+                
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Email address
+                    </label>
                     <input
                       id="email"
                       name="email"
                       type="email"
-                      autoComplete="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Password
-                  </label>
-                  <div className="mt-1">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Password
+                    </label>
                     <input
                       id="password"
                       name="password"
                       type="password"
-                      autoComplete="current-password"
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                      Remember me
-                    </label>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <input
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        className="h-4 w-4 text-accent border-gray-500 focus:ring-accent"
+                      />
+                      <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 font-serif">
+                        Remember me
+                      </label>
+                    </div>
+
+                    <div className="text-sm">
+                      <a href="#" className="font-medium text-accent hover:underline font-serif">
+                        Forgot password?
+                      </a>
+                    </div>
                   </div>
 
-                  <div className="text-sm">
-                    <a href="#" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">
-                      Forgot your password?
-                    </a>
-                  </div>
-                </div>
-
-                <div>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70"
+                    className="w-full py-2 px-4 bg-gray-800 text-white border border-gray-800 hover:bg-transparent hover:text-gray-800 transition-colors font-serif"
                   >
                     {isLoading ? 'Signing in...' : 'Sign in'}
                   </button>
-                </div>
-              </form>
-
-              <div className="mt-6">
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                </form>
+              </>
+            )}
+            
+            {/* Signup Form */}
+            {isSignup && (
+              <>
+                {signupError && (
+                  <div className="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 p-4 text-red-700 dark:text-red-400">
+                    <p>{signupError}</p>
                   </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
-                      Demo credentials
-                    </span>
-                  </div>
-                </div>
+                )}
                 
-                <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-                  <p>Email: user@example.com</p>
-                  <p>Password: password123</p>
-                </div>
-              </div>
-            </>
-          )}
-          
-          {/* Signup Form */}
-          {isSignup && (
-            <>
-              {signupError && (
-                <div className="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 p-4 text-red-700 dark:text-red-400">
-                  <p>{signupError}</p>
-                </div>
-              )}
-              
-              <form className="space-y-6" onSubmit={handleSignup}>
-                <div>
-                  <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Full Name
-                  </label>
-                  <div className="mt-1">
+                <form className="space-y-6" onSubmit={handleSignup}>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Full Name
+                    </label>
                     <input
                       id="signup-name"
                       name="name"
                       type="text"
-                      autoComplete="name"
                       required
                       value={signupName}
                       onChange={(e) => setSignupName(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="John Doe"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
-
-                <div>
-                  <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Username
-                  </label>
-                  <div className="mt-1">
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Username
+                    </label>
                     <input
                       id="signup-username"
                       name="name"
@@ -294,106 +269,91 @@ const UserLogin = () => {
                       required
                       value={signupUsername}
                       onChange={(e) => setSignupUsername(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="avinash1234"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
-              
-                <div>
-                  <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Email address
-                  </label>
-                  <div className="mt-1">
+                
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Email address
+                    </label>
                     <input
                       id="signup-email"
                       name="email"
                       type="email"
-                      autoComplete="email"
                       required
                       value={signupEmail}
                       onChange={(e) => setSignupEmail(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="you@example.com"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Password
-                  </label>
-                  <div className="mt-1">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Password
+                    </label>
                     <input
                       id="signup-password"
                       name="password"
                       type="password"
-                      autoComplete="new-password"
                       required
                       value={signupPassword}
                       onChange={(e) => setSignupPassword(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="••••••••"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Confirm Password
-                  </label>
-                  <div className="mt-1">
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1 font-serif">
+                      Confirm Password
+                    </label>
                     <input
                       id="confirm-password"
                       name="confirm-password"
                       type="password"
-                      autoComplete="new-password"
                       required
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="••••••••"
+                      className="w-full px-3 py-2 bg-aged-paper border border-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                   </div>
-                </div>
 
-                <div className="flex items-center">
-                  <input
-                    id="terms"
-                    name="terms"
-                    type="checkbox"
-                    required
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                  <label htmlFor="terms" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                    I agree to the <a href="#" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">Terms of Service</a> and <a href="#" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">Privacy Policy</a>
-                  </label>
-                </div>
+                  <div className="flex items-center">
+                    <input
+                      id="terms"
+                      name="terms"
+                      type="checkbox"
+                      required
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="terms" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                      I agree to the <a href="#" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">Terms of Service</a> and <a href="#" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">Privacy Policy</a>
+                    </label>
+                  </div>
 
-                <div>
                   <button
                     type="submit"
                     disabled={signupLoading}
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70"
+                    className="w-full py-2 px-4 bg-gray-800 text-white border border-gray-800 hover:bg-transparent hover:text-gray-800 transition-colors font-serif"
                   >
                     {signupLoading ? 'Creating account...' : 'Create account'}
                   </button>
+                </form>
+                
+                <div className="mt-6">
+                  <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+                    Already have an account?{' '}
+                    <button 
+                      onClick={() => setIsSignup(false)} 
+                      className="text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
+                    >
+                      Sign in
+                    </button>
+                  </p>
                 </div>
-              </form>
-              
-              <div className="mt-6">
-                <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                  Already have an account?{' '}
-                  <button 
-                    onClick={() => setIsSignup(false)} 
-                    className="text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
-                  >
-                    Sign in
-                  </button>
-                </p>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

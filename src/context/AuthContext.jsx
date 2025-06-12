@@ -7,19 +7,38 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Configure axios to include credentials (cookies)
+  axios.defaults.withCredentials = true;
+
+  // Check authentication status on app load
   useEffect(() => {
-    // Check if user is logged in from localStorage
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
+    const checkAuthStatus = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/auth/status');
+        if (res.data.authenticated && res.data.user) {
+          setCurrentUser(res.data.user);
+        } else {
+          setCurrentUser(null);
+          localStorage.removeItem('user');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setCurrentUser(null);
+        localStorage.removeItem('user');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuthStatus();
   }, []);
 
   const login = async (email, password, userType = 'admin') => {
     try {
-      // Make direct API call to authenticate
-      const response = await axios.post("http://localhost:5000/api/auth", { email, password });
+      const response = await axios.post("http://localhost:5000/api/auth", { 
+        email, 
+        password 
+      });
       
       if (response.data && response.data.success) {
         const user = {
@@ -44,19 +63,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('user');
-  };
-
-  const isAuthenticated = () => !!currentUser;
-
-  const value = {
-    currentUser,
-    loading,
-    login,
-    logout,
-    isAuthenticated,
+  const logout = async () => {
+    try {
+      await axios.get('http://localhost:5000/api/auth/logout');
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setCurrentUser(null);
+      localStorage.removeItem('user');
+    }
   };
 
   return (

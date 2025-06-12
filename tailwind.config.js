@@ -57,6 +57,10 @@ export default {
             secondary: '#64748b',
           }
         },
+        'paper': '#f8f5f0',
+        'aged-paper': '#f2efe8',
+        'ink': '#1a1a1a',
+        'accent': '#8b0000',
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
@@ -66,6 +70,26 @@ export default {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
         'serif': ['Merriweather', 'Georgia', 'serif'],
         'display': ['Playfair Display', 'serif'],
+        'mono': ['"Courier Prime"', 'monospace'],
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            fontFamily: '"Lora", "Libre Baskerville", serif',
+            h1: {
+              fontFamily: '"Playfair Display", Georgia, Times, serif',
+            },
+            h2: {
+              fontFamily: '"Playfair Display", Georgia, Times, serif',
+            },
+            h3: {
+              fontFamily: '"Playfair Display", Georgia, Times, serif',
+            },
+            h4: {
+              fontFamily: '"Playfair Display", Georgia, Times, serif',
+            },
+          }
+        }
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -83,5 +107,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

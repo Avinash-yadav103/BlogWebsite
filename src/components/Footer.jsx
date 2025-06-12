@@ -1,79 +1,70 @@
 import { Link } from 'react-router-dom';
-import { Twitter, Linkedin, Github, Instagram } from 'lucide-react';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-white dark:bg-gray-900 py-8 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
-            <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">BlogSite</Link>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Sharing thoughts, ideas, and knowledge with the world.
+    <footer className="bg-gray-800 text-white">
+      {/* Newspaper-style top border */}
+      <div className="h-1 bg-white"></div>
+      <div className="h-px bg-gray-600 mt-px"></div>
+      
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 className="font-serif text-xl font-bold mb-4">The Daily Chronicle</h3>
+            <p className="text-gray-300 text-sm">
+              Insightful articles, tutorials, and stories that inform and inspire.
             </p>
           </div>
           
-          <div className="flex flex-col mb-6 md:mb-0">
-            <h3 className="font-semibold text-gray-800 dark:text-white mb-2">Navigation</h3>
-            <div className="flex flex-col space-y-1">
-              <Link to="/" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Home</Link>
-              <Link to="/blog" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Blog</Link>
-              <Link to="/about" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">About</Link>
-              <Link to="/contact" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Contact</Link>
-            </div>
+          <div>
+            <h4 className="font-serif text-lg font-bold mb-4 border-b border-gray-700 pb-2">Categories</h4>
+            <ul className="space-y-2">
+              <li><Link to="/blog/category/technology" className="hover:text-gray-300 font-serif">Technology</Link></li>
+              <li><Link to="/blog/category/science" className="hover:text-gray-300 font-serif">Science</Link></li>
+              <li><Link to="/blog/category/design" className="hover:text-gray-300 font-serif">Design</Link></li>
+              <li><Link to="/blog/category/business" className="hover:text-gray-300 font-serif">Business</Link></li>
+            </ul>
           </div>
-
-          <div className="flex flex-col mb-6 md:mb-0">
-            <h3 className="font-semibold text-gray-800 dark:text-white mb-2">Newsletter</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-              Subscribe to get the latest posts delivered right to your inbox.
-            </p>
+          
+          <div>
+            <h4 className="font-serif text-lg font-bold mb-4 border-b border-gray-700 pb-2">Information</h4>
+            <ul className="space-y-2">
+              <li><Link to="/about" className="hover:text-gray-300 font-serif">About Us</Link></li>
+              <li><Link to="/contact" className="hover:text-gray-300 font-serif">Contact</Link></li>
+              <li><Link to="/privacy" className="hover:text-gray-300 font-serif">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-gray-300 font-serif">Terms of Service</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-serif text-lg font-bold mb-4 border-b border-gray-700 pb-2">Subscribe</h4>
+            <p className="text-gray-300 mb-4 text-sm">Stay updated with our latest stories and news.</p>
             <form className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <input 
+                type="email" 
+                placeholder="Your email" 
+                className="px-3 py-2 bg-gray-700 border border-gray-600 text-white flex-grow focus:outline-none focus:ring-1 focus:ring-white"
               />
-              <button
+              <button 
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md"
+                className="px-4 py-2 bg-accent text-white border border-accent hover:bg-transparent hover:text-accent transition-colors"
               >
-                Subscribe
+                Join
               </button>
             </form>
           </div>
-          
-          <div className="flex flex-col">
-            <h3 className="font-semibold text-gray-800 dark:text-white mb-2">Connect</h3>
-            <div className="flex space-x-4">
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                <Twitter size={20} />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                <Linkedin size={20} />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                <Github size={20} />
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                <Instagram size={20} />
-                <span className="sr-only">Instagram</span>
-              </a>
-            </div>
-          </div>
         </div>
         
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            © {currentYear} BlogSite. All rights reserved.
+        <div className="mt-12 pt-6 border-t border-gray-700 text-center">
+          <p className="font-serif text-sm text-gray-400">
+            © {new Date().getFullYear()} The Daily Chronicle. All rights reserved. 
           </p>
         </div>
       </div>
+      
+      {/* Newspaper-style bottom border */}
+      <div className="h-px bg-gray-600"></div>
+      <div className="h-1 bg-white"></div>
     </footer>
   );
 };

@@ -2,15 +2,20 @@ const https = require('https');
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser'); // Add this
 const authRoutes = require('./routes/auth');
 dotenv.config()
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Your frontend URL
+  credentials: true // Allow cookies to be sent from frontend
+}));
 app.use(express.json());
+app.use(cookieParser()); // Add this middleware
 
 
 mongoose.connect(process.env.MONGO_URI,{

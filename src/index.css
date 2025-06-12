@@ -1,4 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Courier+Prime&display=swap');
+/* Global theme variables */
+:root {
+  /* Color palette */
+  --color-paper: #f8f5f0;
+  --color-aged-paper: #f2efe8;
+  --color-ink: #1a1a1a;
+  --color-ink-light: #444444;
+  --color-accent: #8b0000; /* Deep red */
+  --color-border: #d3d0c9;
+  
+  /* Typography */
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Lora", "Libre Baskerville", serif;
+  --font-mono: "Courier Prime", monospace;
+}
+
+/* Base elements */
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
 
 @tailwind base;
 @tailwind components;
@@ -112,3 +148,29 @@ body {
 .post-content code {
   @apply font-mono text-sm;
 }
+
+/* In your src/index.css or a dedicated fonts.css file */
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./assets/fonts/playfair-display-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./assets/fonts/playfair-display-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Add similar @font-face declarations for other fonts */
+
+/* Add these Google Fonts to your index.html */
+/* 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+*/
