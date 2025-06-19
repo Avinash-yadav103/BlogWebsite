@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import BlogCard from '../components/BlogCard';
-import axios from 'axios';
+import allBlogs from '../data/blogs';  // Import your blog data
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -8,21 +8,16 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await axios.get('/api/posts');
-        if (res.data && res.data.length > 0) {
-          setFeaturedPost(res.data[0]);
-          setPosts(res.data.slice(1));
-        }
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching posts:', err);
-        setLoading(false);
-      }
-    };
+    // Use the imported blog data instead of API call
+    if (allBlogs && allBlogs.length > 0) {
+      setFeaturedPost(allBlogs[0]);  // Set newest blog as featured
+      setPosts(allBlogs.slice(1));   // Rest of the blogs
+    }
+    setLoading(false);
     
-    fetchPosts();
+    // Keep your existing API call as fallback or for additional posts
+    // const fetchPosts = async () => { ... }
+    // fetchPosts();
   }, []);
   
   if (loading) {

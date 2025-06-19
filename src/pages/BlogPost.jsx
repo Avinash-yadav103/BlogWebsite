@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';  // Install this: npm install react-markdown
+import allBlogs from '../data/blogs';  // Import your blog data
 import axios from 'axios';
 import { Heart, MessageSquare, Share2, Bookmark } from 'lucide-react';
 
@@ -10,6 +12,16 @@ const BlogPost = () => {
   const [error, setError] = useState(null);
   
   useEffect(() => {
+    // First try to find the post in our local data
+    const foundPost = allBlogs.find(blog => blog.slug === slug);
+    
+    if (foundPost) {
+      setPost(foundPost);
+      setLoading(false);
+      return;
+    }
+    
+    // If not found locally, try the API (your existing code)
     const fetchPost = async () => {
       try {
         // Replace with your actual API endpoint
@@ -73,32 +85,32 @@ const BlogPost = () => {
         </header>
         
         {/* Featured image */}
-        {post.image && (
+        {post.coverImage && (
           <figure className="mb-12 border-t-4 border-b-4 border-gray-800 py-2">
             <img 
-              src={post.image} 
+              src={post.coverImage} 
               alt={post.title}
               className="w-full h-auto"
             />
-            {post.imageCaption && (
-              <figcaption className="mt-2 text-center text-sm text-gray-600 font-serif italic">
-                {post.imageCaption}
-              </figcaption>
-            )}
           </figure>
         )}
         
-        {/* Article content - newspaper style */}
+        {/* Article content with markdown support */}
         <div className="prose prose-lg max-w-none font-serif prose-headings:font-serif prose-headings:font-bold prose-h2:text-2xl prose-p:leading-relaxed prose-p:my-6 prose-a:text-accent prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic">
-          {/* First paragraph with drop cap */}
-          <p className="first-letter:text-7xl first-letter:font-bold first-letter:text-accent first-letter:mr-3 first-letter:float-left">
-            {post.content.split('\n\n')[0]}
-          </p>
-          
-          {/* Rest of the content */}
-          {post.content.split('\n\n').slice(1).map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
+          {post.content ? (
+            <ReactMarkdown>{post.content}</ReactMarkdown>
+          ) : (
+            /* Your existing content rendering */
+            <>
+              <p className="first-letter:text-7xl first-letter:font-bold first-letter:text-accent first-letter:mr-3 first-letter:float-left">
+                {post.content?.split('\n\n')[0] || "Content not available"}
+              </p>
+              
+              {post.content?.split('\n\n').slice(1).map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </>
+          )}
         </div>
         
         {/* Article footer */}
