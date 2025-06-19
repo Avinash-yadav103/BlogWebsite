@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BlogCard from '../components/BlogCard';
-import blogImg from '../assets/blog.jpg';
+// Note: You should download this image and place it in your assets folder
+import blogImg from '../assets/blog.jpg'; // Fallback image
 import { ArrowRight } from 'lucide-react';
 
 const Home = () => {
@@ -30,14 +31,14 @@ const Home = () => {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 600));
         
-        // Mock data
+        // Mock data with real images
         const mockPosts = [
           {
             id: 1,
             title: 'Getting Started with React',
             slug: 'getting-started-with-react',
             excerpt: 'Learn the basics of React and how to set up your first project with this comprehensive guide.',
-            coverImage: '/api/placeholder/800/600',
+            coverImage: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80',
             publishedAt: '2025-05-15T10:00:00Z',
             readingTime: 5,
             commentsCount: 8,
@@ -45,7 +46,7 @@ const Home = () => {
             categories: ['React', 'Frontend'],
             author: {
               name: 'Jane Doe',
-              avatar: '/api/placeholder/100/100'
+              avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&q=80'
             }
           },
           {
@@ -53,7 +54,7 @@ const Home = () => {
             title: 'Mastering Tailwind CSS',
             slug: 'mastering-tailwind-css',
             excerpt: 'Discover how to build beautiful UIs quickly with Tailwind CSS utility classes.',
-            coverImage: '/api/placeholder/800/600',
+            coverImage: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&q=80',
             publishedAt: '2025-05-10T14:30:00Z',
             readingTime: 7,
             commentsCount: 12,
@@ -61,7 +62,7 @@ const Home = () => {
             categories: ['CSS', 'Design'],
             author: {
               name: 'John Smith',
-              avatar: '/api/placeholder/100/100'
+              avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&q=80'
             }
           },
           {
@@ -69,7 +70,7 @@ const Home = () => {
             title: 'Building a Blog with React and Firebase',
             slug: 'building-blog-react-firebase',
             excerpt: 'Follow along as we build a complete blog application using React for the frontend and Firebase for the backend.',
-            coverImage: '/api/placeholder/800/600',
+            coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80',
             publishedAt: '2025-05-05T09:15:00Z',
             readingTime: 12,
             commentsCount: 4,
@@ -77,7 +78,7 @@ const Home = () => {
             categories: ['React', 'Firebase', 'Tutorial'],
             author: {
               name: 'Alex Johnson',
-              avatar: '/api/placeholder/100/100'
+              avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80'
             }
           },
           {
@@ -85,7 +86,7 @@ const Home = () => {
             title: 'JavaScript Promises Explained',
             slug: 'javascript-promises-explained',
             excerpt: 'Understand how promises work in JavaScript and how they help manage asynchronous operations.',
-            coverImage: '/api/placeholder/800/600',
+            coverImage: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=80',
             publishedAt: '2025-04-30T11:20:00Z',
             readingTime: 8,
             commentsCount: 9,
@@ -93,7 +94,7 @@ const Home = () => {
             categories: ['JavaScript', 'Programming'],
             author: {
               name: 'Sarah Parker',
-              avatar: '/api/placeholder/100/100'
+              avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&q=80'
             }
           },
           {
@@ -101,7 +102,7 @@ const Home = () => {
             title: 'Introduction to State Management',
             slug: 'introduction-to-state-management',
             excerpt: 'Learn about different approaches to managing state in modern web applications.',
-            coverImage: '/api/placeholder/800/600',
+            coverImage: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=800&q=80',
             publishedAt: '2025-04-25T16:45:00Z',
             readingTime: 10,
             commentsCount: 6,
@@ -109,7 +110,7 @@ const Home = () => {
             categories: ['React', 'Redux', 'State Management'],
             author: {
               name: 'Michael Brown',
-              avatar: '/api/placeholder/100/100'
+              avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=100&h=100&fit=crop&q=80'
             }
           }
         ];
@@ -198,7 +199,7 @@ const Home = () => {
               
               <div className="mb-6 border-4 border-gray-800">
                 <img 
-                  src={featuredPosts[0]?.coverImage || blogImg}
+                  src={featuredPosts[0]?.coverImage || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80"}
                   alt={featuredPosts[0]?.title || "Front page"}
                   className="w-full h-auto"
                 />
