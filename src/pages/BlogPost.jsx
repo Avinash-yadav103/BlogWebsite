@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import allBlogs from '../data/blogs';
-import { Heart, MessageSquare, Share2, Bookmark, ArrowLeft, Calendar, Clock, User } from 'lucide-react';
+import { Heart, MessageSquare, Share2, Bookmark, ArrowLeft, Calendar, Clock, User, Lightbulb } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 const BlogPost = () => {
@@ -150,6 +150,25 @@ const BlogPost = () => {
             </>
           )}
         </div>
+        
+        {/* Notes Section - NEW */}
+        {post.notes && post.notes.length > 0 && (
+          <div className="mt-12 mb-12 bg-aged-paper border-4 border-double border-gray-800 p-8">
+            <div className="flex items-center mb-6">
+              <Lightbulb className="text-accent mr-3" size={24} />
+              <h3 className="font-serif text-2xl font-bold">Important Notes</h3>
+            </div>
+            
+            <ul className="space-y-4">
+              {post.notes.map((note, index) => (
+                <li key={index} className="flex">
+                  <span className="text-accent font-serif font-bold mr-2">•</span>
+                  <p className="font-serif">{note}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         
         {/* Article footer */}
         <div className="mt-12 border-t-2 border-gray-300 pt-6 flex justify-between items-center">
